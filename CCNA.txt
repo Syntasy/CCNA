@@ -1,0 +1,78 @@
+------------------------------------------------------
+Router-on-a-Stick
+------------------------------------------------------
+Router(config)#interface fastethernet 0/0
+Router(config-if)#no shutdown
+Router(config-if)#interface fastethernet 0/0.10
+Router(config-subif)#encapsulation dot1q 10		----> VLAN 10
+Router(config-subif)#ip address 192.168.10.1 255.255.255.0
+Router(config-subif)#interface fastethernet 0/0.20
+Router(config-subif)#encapsulation dot1q 20		----> VLAN 20
+Router(config-subif)#ip address 192.168.20.1 255.255.255.0
+Router(config-subif)#exit
+
+------------------------------------------------------
+Administrative Distance
+------------------------------------------------------
+
+Route Type		Administrative Distance
+----------		-----------------------
+Connected		0
+Static			1
+EIGRP			90
+IGRP			100
+OSPF			110
+RIP			120
+
+
+------------------------------------------------------
+Routing Protocol
+------------------------------------------------------
+
+Static Routing
+
+  Static
+  Default
+  Floating
+
+Dynamic Routing
+
+  Distance Vector(RIP)
+	Auto-summary
+	Split-horizon
+
+  Link state(OSPF)
+	Neighbor table
+	Topology Table
+	Routing Table
+
+  Hybrid(EIGRP-Categorize in Distance Vector)
+	Auto-summary
+	Split-horizon
+	Neighbor table
+	Topology table
+	Routing table
+
+
+------------------------------------------------------
+Static/Default Route
+------------------------------------------------------
+Static Route
+Router(config)#ip route 172.16.20.0 255.255.255.0 172.16.10.2
+	        Destination Network NetMask       Next-hop address
+
+
+Default Route
+Router(config)#ip route 0.0.0.0 0.0.0.0 172.16.10.2
+
+
+------------------------------------------------------
+EIGRP
+------------------------------------------------------
+
+  AD:90
+  Distance Vector
+  Composite Metric (Bandwidth+Delay)
+  Classless
+  224.0.0.10
+
